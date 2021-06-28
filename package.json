@@ -7,7 +7,10 @@
     "lint": "npx eslint src/**/*.js",
     "prettier": "npx prettier --write .",
     "dev": "npx webpack server",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build:dev": "env NODE_ENV=development npx webpack",
+    "build": "env NODE_ENV=production npx webpack",
+    "start": "webpack server"
   },
   "repository": {
     "type": "git",
