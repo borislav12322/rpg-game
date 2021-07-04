@@ -20,9 +20,8 @@ const init = async () =>{
         path: '/{path*}',
         handler: (request, h) => {
             if(FILES.test(request.path)){
-                return h.file(path.join(process.cwd(), 'dist', request.path))
+                return h.file(path.join(process.cwd(), 'dist', request.path));
             }
-
             return h.file(path.join(process.cwd(), 'dist', PATH[request.path]));
         }
     })
