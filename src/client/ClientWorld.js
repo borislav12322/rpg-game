@@ -1,30 +1,63 @@
+import PositionedObject from '../common/PositionedObject';
 import { spriteWidth, spriteHeight } from '../index';
+import ClientCell from './ClientCell';
 
-class ClientWorld {
+class ClientWorld extends PositionedObject{
     constructor(game, engine, levelConfig) {
+        super();
+
+        const worldHeight = levelConfig.map.lenght;
+        const worldWidth = levelConfig.map[0].lenght;
+        const cellSize = engine.canvas.height / levelConfig.camera.height;
+
         Object.assign(this, {
             game,
             engine,
             levelConfig,
-            height: levelConfig.map.lenght,
-            width: levelConfig.map[0].lenght,
+            height: worldHeight * cellSize,
+            width: worldWidth * cellSize,
+            worldHeight,
+            worldWidth,
+            cellWidth: cellSize,
+            cellHeight: cellSize,
+            map: [],
+
+
         });
     }
 
     init() {
-        const { map } = this.levelConfig;
-        map.forEach((configRow, y) => {
-            configRow.forEach((configCell, x) => {
-                this.engine.renderSpriteFrame({
-                    sprite: ['terrain', configCell[0]],
-                    frame: 0,
-                    x: x * spriteWidth,
-                    y: y * spriteHeight,
-                    w: spriteWidth,
-                    h: spriteHeight,
-                });
-            });
-        });
+        const {levelConfig, map, worldWidth, worldHeight} = this;
+
+        for (let row = 0; row < worldHeight; row++){
+            for (let col = 0; col < worldWidth; col++){
+                if (!map[row]){
+                    map[row] = [];
+                }
+                map[row][col] =  new ClientCell({
+                    world: this,
+                    cellCol: col,
+                    cellRow: row,
+                    cellCfg: levelConfig.map[row][col],
+                })
+            }
+        }
+    }
+
+    
+    render(time){
+        const {map, worldWidth, worldHeight} = this;
+
+        for (let row = 0; row < worldHeight; row++){
+            for(let col = 0; col < worldWidth; col++){
+                map[row][col].render(time)
+            }
+        }
+    }
+
+
+    cellAt(col, row){
+        return this.map[row] && this.map[row][col]
     }
 }
 
