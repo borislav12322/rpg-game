@@ -17,7 +17,7 @@ class ClientGame {
         this.initEngine();
     }
 
-    setPlayer(player){
+    setPlayer(player) {
         this.player = player;
     }
     createEngine() {
@@ -39,37 +39,35 @@ class ClientGame {
         });
     }
 
-    initKeys(){
+    initKeys() {
         this.engine.input.onKey({
             ArrowLeft: (keydown) => {
-            if (keydown){
-                this.player.moveKeys(-1, 0)
-            }
+                if (keydown) {
+                    this.player.moveKeys(-1, 0);
+                }
             },
 
             ArrowRight: (keydown) => {
-                if(keydown){
+                if (keydown) {
                     this.moveKeys(+1, 0);
                 }
             },
 
             ArrowDown: (keydown) => {
-                if(keydown){
+                if (keydown) {
                     this.moveKeys(0, 1);
                 }
             },
 
             ArrowUp: (keydown) => {
-                if(keydown){
+                if (keydown) {
                     this.moveKeys(0, -1);
                 }
             },
-
-
-        })
+        });
     }
 
-    moveKeys(x, y){
+    moveKeys(x, y) {
         this.player.moveByCellCoord(x, y, (cell) => cell.findObjectsByType('grass').length);
     }
 
