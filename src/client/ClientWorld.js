@@ -2,7 +2,7 @@ import PositionedObject from '../common/PositionedObject';
 import { spriteWidth, spriteHeight } from '../index';
 import ClientCell from './ClientCell';
 
-class ClientWorld extends PositionedObject{
+class ClientWorld extends PositionedObject {
     constructor(game, engine, levelConfig) {
         super();
 
@@ -21,43 +21,39 @@ class ClientWorld extends PositionedObject{
             cellWidth: cellSize,
             cellHeight: cellSize,
             map: [],
-
-
         });
     }
 
     init() {
-        const {levelConfig, map, worldWidth, worldHeight} = this;
+        const { levelConfig, map, worldWidth, worldHeight } = this;
 
-        for (let row = 0; row < worldHeight; row++){
-            for (let col = 0; col < worldWidth; col++){
-                if (!map[row]){
+        for (let row = 0; row < worldHeight; row++) {
+            for (let col = 0; col < worldWidth; col++) {
+                if (!map[row]) {
                     map[row] = [];
                 }
-                map[row][col] =  new ClientCell({
+                map[row][col] = new ClientCell({
                     world: this,
                     cellCol: col,
                     cellRow: row,
                     cellCfg: levelConfig.map[row][col],
-                })
+                });
             }
         }
     }
 
-    
-    render(time){
-        const {map, worldWidth, worldHeight} = this;
+    render(time) {
+        const { map, worldWidth, worldHeight } = this;
 
-        for (let row = 0; row < worldHeight; row++){
-            for(let col = 0; col < worldWidth; col++){
-                map[row][col].render(time)
+        for (let row = 0; row < worldHeight; row++) {
+            for (let col = 0; col < worldWidth; col++) {
+                map[row][col].render(time);
             }
         }
     }
 
-
-    cellAt(col, row){
-        return this.map[row] && this.map[row][col]
+    cellAt(col, row) {
+        return this.map[row] && this.map[row][col];
     }
 }
 

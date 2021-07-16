@@ -10,7 +10,7 @@ class ClientEngine {
             imageLoaders: [],
             sprites: {},
             images: {},
-            camera: new ClientCamera ({canvas, engine: this}),
+            camera: new ClientCamera({ canvas, engine: this }),
             input: new ClientInput(canvas),
         });
 
